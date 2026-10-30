@@ -1,19 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>मेरे गेम्स</title>
+<title>मेरे 3D गेम्स</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-body{background:#111;color:#fff;font-family:sans-serif;text-align:center}
-a{display:block;margin:15px auto;padding:20px;width:220px;
-background:#222;color:#fff;text-decoration:none;border-radius:10px}
+:root{--bg:#0e1020;--card:#171a33;--line:#2a2e54;--ink:#eef0ff;--mute:#9aa0c8;--a:#7c5cff;--b:#3de0ff;--red:#ff4d5e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Poppins,system-ui,sans-serif;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+nav{padding:18px 0;font-weight:800;font-size:18px;border-bottom:1px solid var(--line)}
+nav span{color:var(--b)}
+a:focus-visible{outline:3px solid var(--b);outline-offset:3px}
+
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center;padding:56px 0 40px}
+.hero h1{font-size:clamp(32px,6vw,54px);line-height:1.15;margin:0 0 14px;font-weight:800}
+.hero p{color:var(--mute);max-width:420px;margin:0 0 24px}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--a),var(--b));color:#06081a;
+  font-weight:600;padding:12px 26px;border-radius:10px;text-decoration:none}
+.stage{perspective:700px;display:flex;justify-content:center;padding:30px 0}
+.cube{width:120px;height:120px;position:relative;transform-style:preserve-3d;animation:spin 14s linear infinite}
+.cube i{position:absolute;inset:0;border:2px solid var(--b);background:rgba(124,92,255,.18);
+  box-shadow:inset 0 0 24px rgba(61,224,255,.25)}
+.cube i:nth-child(1){transform:translateZ(60px)}
+.cube i:nth-child(2){transform:rotateY(90deg) translateZ(60px)}
+.cube i:nth-child(3){transform:rotateY(180deg) translateZ(60px)}
+.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(60px)}
+.cube i:nth-child(5){transform:rotateX(90deg) translateZ(60px)}
+.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(60px)}
+@keyframes spin{to{transform:rotateX(360deg) rotateY(360deg)}}
+
+h2{font-size:22px;margin:30px 0 16px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding-bottom:50px}
+.card{display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;text-decoration:none;color:inherit;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);border-color:var(--a)}
+.thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:56px}
+.t2{background:linear-gradient(135deg,#0b5f7a,#3de0ff)}
+.t3{background:linear-gradient(135deg,#8f2a6b,#ff6aa8)}
+.info{padding:16px 18px 20px}
+.info h3{margin:0 0 4px;font-size:18px}
+.info p{margin:0 0 14px;color:var(--mute);font-size:14px}
+.play{font-weight:600;color:var(--b);font-size:14px}
+
+/* बड़ा फीचर्ड कार्ड: Car Parking */
+.feature{grid-column:1/-1;display:grid;grid-template-columns:1.1fr 1fr;border-color:var(--a)}
+.lot{position:relative;min-height:240px;background:#23263f;
+  background-image:linear-gradient(#23263f,#1a1c30);overflow:hidden}
+.slot{position:absolute;top:34px;width:64px;height:112px;border:3px solid #cfd3ee;border-top:none;opacity:.8}
+.s1{left:8%}.s2{left:24%}.s3{left:40%;border-color:var(--b);box-shadow:0 0 22px rgba(61,224,255,.55);
+  background:rgba(61,224,255,.12);animation:glow 1.8s ease-in-out infinite}
+.s4{left:56%}.s5{left:72%}
+.pcar{position:absolute;width:50px;height:92px;border-radius:12px;
+  background:linear-gradient(90deg,#d1283a,var(--red));box-shadow:0 8px 14px rgba(0,0,0,.45)}
+.pcar::before{content:"";position:absolute;left:7px;right:7px;top:18px;height:22px;border-radius:6px;background:#1b2340}
+.pcar::after{content:"";position:absolute;left:7px;right:7px;bottom:12px;height:12px;border-radius:5px;background:#1b2340}
+.c1{left:calc(8% + 7px);top:44px;background:linear-gradient(90deg,#3b2a8f,var(--a))}
+.c2{left:calc(72% + 7px);top:44px;background:linear-gradient(90deg,#b8860b,#ffc233)}
+.c3{left:calc(40% + 7px);top:200px;animation:park 3.2s ease-in-out infinite}
+@keyframes park{0%,15%{top:210px}70%,100%{top:46px}}
+@keyframes glow{50%{box-shadow:0 0 6px rgba(61,224,255,.2)}}
+.badge{position:absolute;top:14px;left:14px;background:var(--red);color:#fff;font-size:12px;font-weight:600;
+  padding:3px 12px;border-radius:20px;z-index:2}
+.feature .info{display:flex;flex-direction:column;justify-content:center;padding:26px}
+.feature h3{font-size:26px}
+.feature .btn{align-self:flex-start;margin-top:6px}
+
+footer{border-top:1px solid var(--line);padding:22px 0;color:var(--mute);font-size:14px;text-align:center}
+
+@media(max-width:700px){
+  .hero{grid-template-columns:1fr;text-align:center;padding-top:36px}
+  .hero p{margin-left:auto;margin-right:auto}.stage{order:-1;padding:10px 0 20px}
+  .grid{grid-template-columns:1fr}.feature{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .cube{animation:none;transform:rotateX(-25deg) rotateY(35deg)}
+  .c3{animation:none;top:46px}.s3{animation:none}.card{transition:none}
+}
 </style>
 </head>
 <body>
-<h1>🎮 मेरे गेम्स</h1>
-<a href="game1/">Game 1</a>
-<a href="game2/">Game 2</a>
-<a href="game3/">Game 3</a>
+
+<div class="wrap">
+  <nav>3D <span>Games</span></nav>
+
+  <section class="hero">
+    <div>
+      <h1>सीधे ब्राउज़र में खेलें 3D गेम्स</h1>
+      <p>कोई डाउनलोड नहीं, कोई इंस्टॉल नहीं। नीचे से अपना गेम चुनें और अभी खेलना शुरू करें।</p>
+      <a class="btn" href="#games">गेम चुनें</a>
+    </div>
+    <div class="stage" aria-hidden="true">
+      <div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+  </section>
+
+  <section id="games">
+    <h2>सभी गेम्स</h2>
+    <div class="grid">
+
+      <!-- गेम 1: Car Parking (बड़ा कार्ड) -->
+      <a class="card feature" href="game1/">
+        <div class="lot" aria-hidden="true">
+          <span class="badge">टॉप गेम</span>
+          <span class="slot s1"></span><span class="slot s2"></span><span class="slot s3"></span>
+          <span class="slot s4"></span><span class="slot s5"></span>
+          <span class="pcar c1"></span><span class="pcar c2"></span><span class="pcar c3"></span>
+        </div>
+        <div class="info">
+          <h3>Car Parking</h3>
+          <p>कार को सही जगह पर पार्क करें। टकराए बिना, कम समय में खाली स्लॉट तक पहुँचें।</p>
+          <span class="btn">अभी खेलें</span>
+        </div>
+      </a>
+
+      <!-- गेम 2: नाम, इमोजी और लाइन बदलें -->
+      <a class="card" href="game2/">
+        <div class="thumb t2">🏎️</div>
+        <div class="info"><h3>Game 2</h3><p>यहाँ गेम के बारे में एक छोटी लाइन लिखें।</p><span class="play">अभी खेलें</span></div>
+      </a>
+
+      <!-- गेम 3 -->
+      <a class="card" href="game3/">
+        <div class="thumb t3">🧩</div>
+        <div class="info"><h3>Game 3</h3><p>यहाँ गेम के बारे में एक छोटी लाइन लिखें।</p><span class="play">अभी खेलें</span></div>
+      </a>
+
+    </div>
+  </section>
+</div>
+
+<footer>© 2026 मेरे 3D गेम्स</footer>
+
 </body>
 </html>
